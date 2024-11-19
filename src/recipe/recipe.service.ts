@@ -1,4 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { AxiosAdapter } from 'src/common/adapters/axios.adapter';
 import { IngredientDto } from 'src/common/dto/ingredient.dto';
@@ -23,11 +28,19 @@ export class RecipeService {
   }
 
   async findAllByIngredient({ ingredient }: IngredientDto) {
-    const response = await this.axiosAdapter.get<RecipeNinjaResponse[]>(
-      `${API_URL}?query=${ingredient}`,
-    );
+    Logger.log('Starting finding recipes by ingredient');
+    try {
+      const response = await this.axiosAdapter.get<RecipeNinjaResponse[]>(
+        `${API_URL}?query=${ingredient}`,
+      );
 
-    return response;
+      return response;
+    } catch (error) {
+      Logger.log(`Error on findAllByIngredient ${error}`);
+      throw new InternalServerErrorException(
+        'We are experimenting some errors, please try again later',
+      );
+    }
   }
 
   async findAll() {
