@@ -34,4 +34,18 @@ export class RecipeService {
     const response = await this.favoriteRecipeRepository.find();
     return response;
   }
+
+  async delete(id: string) {
+    const response = await this.favoriteRecipeRepository.delete(id);
+
+    if (response.affected > 0) {
+      return {
+        message: `The recipe with id '${id}' was deleted`,
+      };
+    } else {
+      return {
+        message: `The recipe with id '${id}' no longer exists`,
+      };
+    }
+  }
 }

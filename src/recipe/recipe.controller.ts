@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Query,
+  Delete,
+  Param,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { RecipeService } from './recipe.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { IngredientDto } from 'src/common/dto/ingredient.dto';
@@ -21,5 +30,10 @@ export class RecipeController {
   @Get('favorites')
   findAll() {
     return this.recipeService.findAll();
+  }
+
+  @Delete('favorites/:id')
+  delete(@Param('id', ParseUUIDPipe) id: string) {
+    return this.recipeService.delete(id);
   }
 }
