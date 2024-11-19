@@ -7,7 +7,7 @@ import { IngredientDto } from 'src/common/dto/ingredient.dto';
 export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
-  @Post()
+  @Post('favorites')
   create(@Body() createRecipeDto: CreateRecipeDto) {
     return this.recipeService.create(createRecipeDto);
   }
