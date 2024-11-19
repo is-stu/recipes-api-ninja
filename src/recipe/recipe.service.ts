@@ -29,4 +29,9 @@ export class RecipeService {
 
     return response;
   }
+
+  async findAll() {
+    const response = await this.favoriteRecipeRepository.find();
+    return response;
+  }
 }

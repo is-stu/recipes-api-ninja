@@ -17,4 +17,9 @@ export class RecipeController {
     console.log(ingredientDTO);
     return this.recipeService.findAllByIngredient(ingredientDTO);
   }
+
+  @Get('favorites')
+  findAll() {
+    return this.recipeService.findAll();
+  }
 }
